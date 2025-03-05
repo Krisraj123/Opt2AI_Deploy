@@ -19,6 +19,14 @@ const ApiDocs = () => {
   };
 
   const codeExamples = {
+    curl: `curl -X POST \\
+  'https://nameisjack-krishna-mdtodocx.hf.space/convert/' \\
+  -H "X-API-Key: ${apiKey}" \\
+  -H "Content-Type: application/json" \\
+  -H "accept: application/json" \\
+  -d '{"md_text": "# Hello World\\n\\nThis is a test."}'
+  `,
+
     node: `const axios = require('axios');
 
 const convertMarkdownToDocx = async (markdown) => {
@@ -59,16 +67,10 @@ def convert_markdown_to_docx(markdown):
     if response.status_code == 200:
         return response.content
     else:
-        raise Exception(f"Error: {response.status_code}, {response.text}")`,
-
-    curl: `curl -X POST \\
-  'https://nameisjack-krishna-mdtodocx.hf.space/convert/' \\
-  -H "X-API-Key: ${apiKey}" \\
-  -H "Content-Type: application/json" \\
-  -H "accept: application/json" \\
-  -d '{"md_text": "# Hello World\\n\\nThis is a test."}'
-  `
+        raise Exception(f"Error: {response.status_code}, {response.text}")
+    `
 };
+
 
   return (
     <div className="py-10">
@@ -144,11 +146,11 @@ def convert_markdown_to_docx(markdown):
         <div className="bg-slate-800 bg-opacity-50 backdrop-blur-lg rounded-xl overflow-hidden shadow-xl border border-gray-700">
           <div className="border-b border-gray-700 p-4">
             <div className="flex space-x-4">
-              <TabButton
-                active={activeTab === 'node'}
-                onClick={() => setActiveTab('node')}
-                icon={<Code size={16} />}
-                label="Node.js"
+            <TabButton
+                active={activeTab === 'curl'}
+                onClick={() => setActiveTab('curl')}
+                icon={<Terminal size={16} />}
+                label="cURL"
               />
               <TabButton
                 active={activeTab === 'python'}
@@ -156,11 +158,11 @@ def convert_markdown_to_docx(markdown):
                 icon={<Code size={16} />}
                 label="Python"
               />
-              <TabButton
-                active={activeTab === 'curl'}
-                onClick={() => setActiveTab('curl')}
-                icon={<Terminal size={16} />}
-                label="cURL"
+               <TabButton
+                active={activeTab === 'node'}
+                onClick={() => setActiveTab('node')}
+                icon={<Code size={16} />}
+                label="Node.js"
               />
             </div>
           </div>
